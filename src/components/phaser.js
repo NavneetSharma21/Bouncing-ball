@@ -5,8 +5,8 @@ import StartBallAnimation from './gameScene';
 const SessionManager = () => {
     const [sessions, setSessions] = useState([]);  
     const [sessionCounter, setSessionCounter] = useState(null);
-    const [gameVisible, setGameVisible] = useState(false)
- 
+    const [isSessionActive,setIsSessionActive] = useState(false)
+    
     const generateSessionId = () => {
         const sid = '_' + Math.random().toString(36).substring(2, 9);
         return sid;
@@ -18,14 +18,15 @@ const SessionManager = () => {
     };
 
     const startSession = () => {
-
+        if (isSessionActive) {
+            return;
+          }
+        setIsSessionActive(true);
         const sessionId = generateSessionId();
         const counterDuration = getRandomInt(10,15);
         const startTime = new Date();
-
         setSessionCounter(counterDuration)
-        setGameVisible(true)
-       
+              
         // Start countdown
          const counterInterval = setInterval(() => {
             setSessionCounter(prevCounter => {
@@ -38,9 +39,9 @@ const SessionManager = () => {
                         endTime: endTime,
                     }
                     setSessions((prevSessions) => [...prevSessions, newSession])
-                    setGameVisible(false)
+                    setIsSessionActive(false);
                     console.log(sessions)
-                    return null;
+                    return 0;
                 }
                 return prevCounter - 1;
             });
@@ -51,7 +52,7 @@ const SessionManager = () => {
         <div>
             <button onClick={startSession}>Start Session</button>
             <div>
-                    Session Timer: {sessionCounter} seconds
+              Session Timer: {sessionCounter} seconds
              </div>
             <div className="session-list">
                 {sessions.map((session, index) => (
@@ -62,7 +63,7 @@ const SessionManager = () => {
                     </div>
                 ))}
             </div>
-         {gameVisible && <StartBallAnimation/>}
+         {<StartBallAnimation isSessionActive={isSessionActive}/>}
           
         </div>
     );
