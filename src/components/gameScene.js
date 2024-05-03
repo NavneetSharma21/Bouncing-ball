@@ -46,7 +46,9 @@ const StartBallAnimation = ({isSessionActive})=> {
                 .setCollideWorldBounds(true, 1, 1, true); 
 
             if (isSessionActive) {
-                ball.setVelocity(Phaser.Math.Between(-800, 800), Phaser.Math.Between(-800, 800));
+                const randomVelocityX = Phaser.Math.Between(-900, 900);
+                const randomVelocityY = Phaser.Math.Between(-900, 900);
+                ball.setVelocity(randomVelocityX, randomVelocityY);
               }                     
         }
         return () => {
