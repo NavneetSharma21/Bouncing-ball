@@ -41,7 +41,7 @@ const StartBallAnimation = ({isSessionActive})=> {
             const height1 = 600;
             bg.setScale(width1 / bg.width, height1 / bg.height);
       
-             ball = this.physics.add.sprite(400, 300, 'ball').setScale(0.1)
+             ball = this.physics.add.sprite(400, 300, 'ball').setScale(0.2)
                 .setVelocity(0, 0)
                 .setCollideWorldBounds(true, 1, 1, true); 
 
