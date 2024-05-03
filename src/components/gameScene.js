@@ -21,6 +21,7 @@ const StartBallAnimation = ({isSessionActive})=> {
             physics: {
                 default: 'arcade',
                 arcade: {
+                    gravity: { y: 0 },
                     debug: false
                 }
             },
@@ -40,20 +41,12 @@ const StartBallAnimation = ({isSessionActive})=> {
             const height1 = 600;
             bg.setScale(width1 / bg.width, height1 / bg.height);
       
-             ball = this.physics.add.sprite(400, 300, 'ball').setScale(0.2)
+             ball = this.physics.add.sprite(400, 300, 'ball').setScale(0.1)
                 .setVelocity(0, 0)
                 .setCollideWorldBounds(true, 1, 1, true); 
-              
-            this.physics.world.on('worldbounds', (body, up, down, left, right) => {
-                const { gameObject } = body;
-                if (up) { gameObject.setAngle(90); }
-                else if (down) { gameObject.setAngle(-90); }
-                else if (left) { gameObject.setAngle(0); }
-                else if (right) { gameObject.setAngle(180); }
-            });  
 
             if (isSessionActive) {
-                ball.setVelocity(-800, 800);
+                ball.setVelocity(Phaser.Math.Between(-800, 800), Phaser.Math.Between(-800, 800));
               }                     
         }
         return () => {
